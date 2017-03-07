@@ -5,9 +5,7 @@
 //    $Id: DigitalIn.cs 1024 2016-10-11 12:06:49Z chj-hslu $
 //------------------------------------------------------------------------------
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
+using System.Collections;
 using System.Threading;
 
 namespace RobotCtrl
@@ -69,7 +67,11 @@ namespace RobotCtrl
         /// </summary>
         public int Data
         {
-            get { return 0; /* ToDo */}
+            get
+            {
+                var data = IOPort.Read(this.Port);
+                return data; 
+            }
         }
         #endregion
 
@@ -95,7 +97,11 @@ namespace RobotCtrl
         /// <returns>den Zustand des entsprechenden Input-Bits.</returns>
         public virtual bool this[int bit]
         {
-            get { return false; /* ToDo */ }
+            get
+            {
+                var bitArray = new BitArray((byte)this.Data);
+                return bitArray[bit]; 
+            }
         }
 
         /// <summary>
@@ -109,9 +115,12 @@ namespace RobotCtrl
             run = true;
             while (run)
             {
-                // Todo: Port des Roboters pollen.
-                // Falls eine Änderung detektiert wird, das Event DigitalInChanged feuern.
-
+                newData = this.Data;
+                if (oldData != newData)
+                {
+                    oldData = newData;
+                    this.OnDigitalInChanged(new EventArgs());
+                }
 
                 Thread.Sleep(50);
             }
