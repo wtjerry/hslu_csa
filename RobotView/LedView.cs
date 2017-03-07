@@ -34,11 +34,14 @@ namespace RobotView
 
         public Led Led
         {
-            get { return led; }
+            get { return this.led; }
             set
             {
-                led = value;
-                led.LedStateChanged += LedOnLedStateChanged;
+                this.led = value;
+                if (this.led != null)
+                {
+                    this.led.LedStateChanged += this.LedOnLedStateChanged;
+                }
             }
         }
 

@@ -85,12 +85,21 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="SwitchView.resx">
+      <DependentUpon>SwitchView.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\LedOff.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\LedOn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\SwitchOff.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\SwitchOn.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkTargetsVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
