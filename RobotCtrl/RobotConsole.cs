@@ -48,6 +48,7 @@ namespace RobotCtrl
             for (int i = 0; i < this.switches.Length; i++)
             {
                 switches[i] = new Switch(digitalIn, (Switches)i);
+                switches[i].SwitchStateChanged += (sender, args) => leds[i].LedEnabled = args.SwitchEnabled;
             }
         }
 
