@@ -5,6 +5,7 @@
 //    $Id: DigitalOut.cs 1024 2016-10-11 12:06:49Z chj-hslu $
 //------------------------------------------------------------------------------
 using System;
+using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
@@ -52,10 +53,18 @@ namespace RobotCtrl
         /// </summary>
         public int Data
         {
-            get { return data; }
+            get
+            {
+                this.data = IOPort.Read(this.Port);
+                return this.data;
+            }
             set 
-            { 
-                // Todo 
+            {
+                if (this.data != value)
+                {
+                    IOPort.Write(this.Port, value);
+                    this.OnDigitalOutputChanged(new EventArgs());
+                }
             }
         }
         #endregion
@@ -83,8 +92,19 @@ namespace RobotCtrl
         /// <returns>den aktuellen Zustand des Bits</returns>
         public virtual bool this[int bit]
         {
-            get { return false; /* ToDo */  }
-            set { /* ToDo */ }
+            get
+            {
+                var bitArray = new BitArray((byte) this.Data);
+                return bitArray[bit];
+            }
+            set
+            {
+                var bitArray = new BitArray((byte)this.Data);
+                bitArray[bit] = value;
+                int[] tmpIntArray = new int[1];
+                bitArray.CopyTo(tmpIntArray, 0);
+                this.Data = tmpIntArray[0];
+            }
         }
         #endregion
     }
