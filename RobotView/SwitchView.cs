@@ -24,11 +24,11 @@ namespace RobotView
                 state = value;
                 if (value)
                 {
-                    this.pictureBox.Image = Resource.LedOn;
+                    this.pictureBox.Image = Resource.SwitchOn;
                 }
                 else
                 {
-                    this.pictureBox.Image = Resource.LedOff;
+                    this.pictureBox.Image = Resource.SwitchOff;
                 }
             }
         }
