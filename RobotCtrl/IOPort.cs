@@ -35,8 +35,8 @@ namespace RobotCtrl
             {
                 Assembly a = Assembly.LoadFrom("RobotIO.dll");
                 Type[] t = a.GetTypes();
-                writeMethod = t[0].GetMethod("Write", BindingFlags.Public | BindingFlags.Static);
-                readMethod = t[0].GetMethod("Read", BindingFlags.Public | BindingFlags.Static);
+                writeMethod = t[3].GetMethod("Write", BindingFlags.Public | BindingFlags.Static);
+                readMethod = t[3].GetMethod("Read", BindingFlags.Public | BindingFlags.Static);
             }
             catch (IOException ex)
             {
