@@ -35,30 +35,38 @@ namespace RobotView
             // 
             // ledView1
             // 
+            this.ledView1.Led = null;
             this.ledView1.Location = new System.Drawing.Point(3, 3);
             this.ledView1.Name = "ledView1";
             this.ledView1.Size = new System.Drawing.Size(20, 20);
+            this.ledView1.State = false;
             this.ledView1.TabIndex = 0;
             // 
             // ledView2
             // 
+            this.ledView2.Led = null;
             this.ledView2.Location = new System.Drawing.Point(29, 3);
             this.ledView2.Name = "ledView2";
             this.ledView2.Size = new System.Drawing.Size(20, 20);
+            this.ledView2.State = false;
             this.ledView2.TabIndex = 1;
             // 
             // ledView3
             // 
+            this.ledView3.Led = null;
             this.ledView3.Location = new System.Drawing.Point(55, 3);
             this.ledView3.Name = "ledView3";
             this.ledView3.Size = new System.Drawing.Size(20, 20);
+            this.ledView3.State = false;
             this.ledView3.TabIndex = 2;
             // 
             // ledView4
             // 
+            this.ledView4.Led = null;
             this.ledView4.Location = new System.Drawing.Point(81, 3);
             this.ledView4.Name = "ledView4";
             this.ledView4.Size = new System.Drawing.Size(20, 20);
+            this.ledView4.State = false;
             this.ledView4.TabIndex = 3;
             // 
             // ConsoleView
