@@ -35,6 +35,10 @@ namespace RobotView
             this.switchView2 = new RobotView.SwitchView();
             this.switchView3 = new RobotView.SwitchView();
             this.switchView4 = new RobotView.SwitchView();
+            this.led0Label = new System.Windows.Forms.Label();
+            this.led1Label = new System.Windows.Forms.Label();
+            this.led2Label = new System.Windows.Forms.Label();
+            this.led3Label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ledView1
@@ -109,21 +113,61 @@ namespace RobotView
             this.switchView4.SwitchControl = null;
             this.switchView4.TabIndex = 7;
             // 
+            // led0Label
+            // 
+            this.led0Label.ForeColor = System.Drawing.Color.White;
+            this.led0Label.Location = new System.Drawing.Point(3, 28);
+            this.led0Label.Name = "led0Label";
+            this.led0Label.Size = new System.Drawing.Size(20, 15);
+            this.led0Label.Text = "0";
+            this.led0Label.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // led1Label
+            // 
+            this.led1Label.ForeColor = System.Drawing.Color.White;
+            this.led1Label.Location = new System.Drawing.Point(29, 28);
+            this.led1Label.Name = "led1Label";
+            this.led1Label.Size = new System.Drawing.Size(20, 15);
+            this.led1Label.Text = "1";
+            this.led1Label.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // led2Label
+            // 
+            this.led2Label.ForeColor = System.Drawing.Color.White;
+            this.led2Label.Location = new System.Drawing.Point(55, 28);
+            this.led2Label.Name = "led2Label";
+            this.led2Label.Size = new System.Drawing.Size(20, 15);
+            this.led2Label.Text = "2";
+            this.led2Label.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // led3Label
+            // 
+            this.led3Label.ForeColor = System.Drawing.Color.White;
+            this.led3Label.Location = new System.Drawing.Point(81, 28);
+            this.led3Label.Name = "led3Label";
+            this.led3Label.Size = new System.Drawing.Size(20, 15);
+            this.led3Label.Text = "3";
+            this.led3Label.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // ConsoleView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.led3Label);
+            this.Controls.Add(this.led2Label);
+            this.Controls.Add(this.led1Label);
+            this.Controls.Add(this.led0Label);
             this.Controls.Add(this.switchView4);
             this.Controls.Add(this.switchView3);
             this.Controls.Add(this.switchView2);
-            this.Controls.Add(this.switchView1);            
+            this.Controls.Add(this.switchView1);
             this.Controls.Add(this.ledView4);
             this.Controls.Add(this.ledView3);
             this.Controls.Add(this.ledView2);
             this.Controls.Add(this.ledView1);
             this.Name = "ConsoleView";
-            this.Size = new System.Drawing.Size(281, 73);
+            this.Size = new System.Drawing.Size(216, 52);
             this.ResumeLayout(false);
 
         }
@@ -139,5 +183,9 @@ namespace RobotView
         private SwitchView switchView2;
         private SwitchView switchView3;
         private SwitchView switchView4;
+        private System.Windows.Forms.Label led0Label;
+        private System.Windows.Forms.Label led1Label;
+        private System.Windows.Forms.Label led2Label;
+        private System.Windows.Forms.Label led3Label;
     }
 }
