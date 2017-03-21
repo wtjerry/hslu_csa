@@ -10,7 +10,7 @@
           <DebuggerIPAddress>192.168.1.2</DebuggerIPAddress>
           <DebuggerCommandLineArguments>
           </DebuggerCommandLineArguments>
-          <ExternalStartApp>\Temp\RobotCtrl</ExternalStartApp>
+          <ExternalStartApp>\Temp\RobotIO</ExternalStartApp>
           <IsStartWithExternalApp>false</IsStartWithExternalApp>
           <ExternalAppPath>
           </ExternalAppPath>
