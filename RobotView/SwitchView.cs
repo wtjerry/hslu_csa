@@ -38,6 +38,10 @@ namespace RobotView
             get { return this.switchControl; }
             set
             {
+                if (this.switchControl != null)
+                {
+                    this.switchControl.SwitchStateChanged -= this.SwitchControlOnSwitchStateChanged;
+                }
                 this.switchControl = value;
                 if (this.switchControl != null)
                 {
