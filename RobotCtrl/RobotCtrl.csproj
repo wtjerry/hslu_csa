@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Engine\DriveCtrl.cs" />
+    <Compile Include="Engine\MotorCtrl.cs" />
     <Compile Include="Input\DigitalIn.cs" />
     <Compile Include="Input\Switch.cs" />
     <Compile Include="Input\SwitchEventArgs.cs" />

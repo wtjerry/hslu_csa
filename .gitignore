@@ -7,3 +7,6 @@ RobotView/bin
 RobotView/obj
 TestConsole/bin
 TestConsole/obj
+TestMotor/bin
+TestMotor/obj
+**.csproj.user
