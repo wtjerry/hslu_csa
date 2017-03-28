@@ -96,18 +96,25 @@ namespace RobotCtrl
             {
                 int data = this.Data;
 
-                BitArray b = new BitArray(new int[] { data });
-                return b[bit];
+                int bitmask = 1 << bit;
+                int maskedData = data & bitmask;
+                return (maskedData != 0);
             }
             set
             {
                 int data = this.Data;
 
-                BitArray b = new BitArray(new int[] { data });
-                b[bit] = value;
-                int[] tmpIntArray = new int[1];
-                b.CopyTo(tmpIntArray, 0);
-                this.Data = tmpIntArray[0];
+                if (value)
+                {
+                    // bit setzen
+                    this.Data = data | (1 << bit);
+                }
+                else
+                {
+                    // bit löschen
+                    this.Data = data & ~(1 << bit);
+                }
+
             }
         }
         #endregion

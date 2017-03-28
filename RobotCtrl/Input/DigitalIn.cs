@@ -101,8 +101,9 @@ namespace RobotCtrl
             {
                 int data = this.Data;
 
-                BitArray b = new BitArray(new int[] { data });
-                return b[bit];
+                int bitmask = 1 << bit;
+                int maskedData = data & bitmask;
+                return (maskedData != 0);
             }
         }
 
