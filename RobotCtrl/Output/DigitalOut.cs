@@ -94,15 +94,19 @@ namespace RobotCtrl
         {
             get
             {
-                var bitArray = new BitArray((byte) this.Data);
-                return bitArray[bit];
+                int data = this.Data;
+
+                BitArray b = new BitArray(new int[] { data });
+                return b[bit];
             }
             set
             {
-                var bitArray = new BitArray((byte)this.Data);
-                bitArray[bit] = value;
+                int data = this.Data;
+
+                BitArray b = new BitArray(new int[] { data });
+                b[bit] = value;
                 int[] tmpIntArray = new int[1];
-                bitArray.CopyTo(tmpIntArray, 0);
+                b.CopyTo(tmpIntArray, 0);
                 this.Data = tmpIntArray[0];
             }
         }
