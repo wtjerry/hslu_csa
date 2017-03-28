@@ -55,13 +55,13 @@ namespace RobotCtrl
         {
             get
             {
-                this.data = IOPort.Read(this.Port);
                 return this.data;
             }
             set 
             {
                 if (this.data != value)
                 {
+                    data = value;
                     IOPort.Write(this.Port, value);
                     this.OnDigitalOutputChanged(new EventArgs());
                 }
