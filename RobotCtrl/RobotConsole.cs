@@ -47,17 +47,10 @@ namespace RobotCtrl
             this.switches = new Switch[4];
             for (int i = 0; i < this.switches.Length; i++)
             {
-                createSwitchAndAttachEventHandlerForIndex(i);
+                switches[i] = new Switch(digitalIn, (Switches)i);
             }
         }
-
-        private void createSwitchAndAttachEventHandlerForIndex(int i)
-        {
-            switches[i] = new Switch(digitalIn, (Switches) i);
-            switches[i].SwitchStateChanged += (sender, args) => leds[i].LedEnabled = args.SwitchEnabled;
-        }
-
-
+        
         public void Dispose()
         {
             digitalIn.Dispose();
