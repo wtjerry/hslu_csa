@@ -38,7 +38,7 @@ namespace TestConsole
             // consoleView
             // 
             this.consoleView.BackColor = System.Drawing.Color.Black;
-            this.consoleView.Location = new System.Drawing.Point(3, 3);
+            this.consoleView.Location = new System.Drawing.Point(64, 71);
             this.consoleView.Name = "consoleView";
             this.consoleView.RobotConsole = null;
             this.consoleView.Size = new System.Drawing.Size(216, 52);
