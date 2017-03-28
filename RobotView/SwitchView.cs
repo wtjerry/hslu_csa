@@ -22,14 +22,22 @@ namespace RobotView
             set
             {
                 state = value;
-                if (value)
+                if (this.pictureBox.InvokeRequired)
                 {
-                    this.pictureBox.Image = Resource.SwitchOn;
+                    this.pictureBox.Invoke((Action)(() => this.SetImageAccordingToSwitchState(value)));
                 }
-                else
-                {
-                    this.pictureBox.Image = Resource.SwitchOff;
-                }
+            }
+        }
+
+        private void SetImageAccordingToSwitchState(bool isSwitchOn)
+        {
+            if (isSwitchOn)
+            {
+                this.pictureBox.Image = Resource.SwitchOn;
+            }
+            else
+            {
+                this.pictureBox.Image = Resource.SwitchOff;
             }
         }
 

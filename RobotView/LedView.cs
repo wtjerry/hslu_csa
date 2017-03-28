@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Forms;
 using RobotCtrl;
 using RobotView.Resources;
@@ -21,14 +22,22 @@ namespace RobotView
             set
             {
                 state = value;
-                if (value)
+                if (this.pictureBox.InvokeRequired)
                 {
-                    this.pictureBox.Image = Resource.LedOn;
+                    this.pictureBox.Invoke((Action)(() => this.SetImageAccordingToLedState(value)));
                 }
-                else
-                {
-                    this.pictureBox.Image = Resource.LedOff;
-                }
+            }
+        }
+
+        private void SetImageAccordingToLedState(bool isSwitchOn)
+        {
+            if (isSwitchOn)
+            {
+                this.pictureBox.Image = Resource.LedOn;
+            }
+            else
+            {
+                this.pictureBox.Image = Resource.LedOff;
             }
         }
 
