@@ -5,23 +5,14 @@
 //    $Id: MotorCtrl.cs 973 2015-11-10 13:12:03Z zajost $
 //------------------------------------------------------------------------------
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace RobotCtrl
 {
-
     public class DriveCtrl : IDisposable
     {
+        private readonly int ioAddress;
 
-        #region members
-        private int ioAddress;
-        #endregion
-
-
-        #region constructor & destructor
         public DriveCtrl(int IOAddress)
         {
             this.ioAddress = IOAddress;
@@ -32,10 +23,7 @@ namespace RobotCtrl
         {
             Reset();
         }
-        #endregion
 
-
-        #region properties
         /// <summary>
         /// Schaltet die Stromversorgung der beiden Motoren ein oder aus.
         /// </summary>
@@ -43,50 +31,71 @@ namespace RobotCtrl
         {
             set { DriveState = (value) ? DriveState | 0x03 : DriveState & ~0x03; }
         }
-
-
+        
         /// <summary>
         /// Liefert den Status ob der rechte Motor ein-/ausgeschaltet ist bzw. schaltet den rechten Motor ein-/aus.
         /// Die Information dazu steht im Bit0 von DriveState.
         /// </summary>
         public bool PowerRight
         {
-            get { return false; } // ToDo
-            set { } // ToDo
+            get { return this.getBitOnIndex(this.DriveState, 0); }
+            set { DriveState = this.setBitOnIndex(this.DriveState, 0, value); }
         }
-
 
         /// <summary>
         /// Liefert den Status ob der linke Motor ein-/ausgeschaltet ist bzw. schaltet den linken Motor ein-/aus.
         /// </summary>
         public bool PowerLeft
         {
-            get { return false; } // ToDo
-            set { } // ToDo
+            get { return this.getBitOnIndex(this.DriveState, 1); }
+            set { DriveState = this.setBitOnIndex(this.DriveState, 1, value); }
         }
-
 
         /// <summary>
         /// Bietet Zugriff auf das Status-/Controlregister
         /// </summary>
         public int DriveState
         {
-            get { return 0; } // ToDo
-            set { } // ToDo
+            get { return IOPort.Read(this.ioAddress); }
+            set { IOPort.Write(this.ioAddress, value); }
         }
-        #endregion
 
-
-        #region methods
         /// <summary>
         /// Setzt die beiden Motorencontroller (LM629) zurück, 
         /// indem kurz die Reset-Leitung aktiviert wird.
         /// </summary>
         public void Reset()
         {
-            // ToDo
+            this.DriveState = 0x00;
+            Thread.Sleep(5);
+            this.DriveState = 0x80;
+            Thread.Sleep(5);
+            this.DriveState = 0x00;
+            Thread.Sleep(5);
         }
-        #endregion
 
+        private bool getBitOnIndex(int data, int index)
+        {
+            int bitmask = 1 << index;
+            int maskedData = data & bitmask;
+            return (maskedData != 0);
+        }
+
+        private int setBitOnIndex(int data, int index, bool desiredBitState)
+        {
+            bool isBitCurrentlySet = getBitOnIndex(data, index);
+            if (isBitCurrentlySet && desiredBitState == false)
+            {
+                // bit löschen
+                data = data & ~(1 << index);
+            }
+            else if(!isBitCurrentlySet && desiredBitState == true)
+            {
+                // bit setzen
+                data = data | (1 << index);
+            }
+
+            return data;
+        }
     }
 }

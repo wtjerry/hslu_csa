@@ -152,7 +152,13 @@ namespace RobotCtrl
         /// </summary>
         public virtual float Distance
         {
-            get { throw new NotImplementedException("ToDo"); }
+            get
+            {
+                const int TicksPerWheelCycle = 28672;
+                const float CircumferenceInMillimetre = 238.761f;
+                var distanceInMillimetre = this.Ticks / TicksPerWheelCycle * CircumferenceInMillimetre;
+                return distanceInMillimetre;
+            }
         }
 
 
