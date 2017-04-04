@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMotor", "TestMotor\TestMotor.csproj", "{3A609D87-641E-4D66-A552-569056AFE8DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDrive", "TestDrive\TestDrive.csproj", "{233AA1B2-0127-4EE4-AE3D-4CC6CFD6C34B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,12 @@ Global
 		{3A609D87-641E-4D66-A552-569056AFE8DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A609D87-641E-4D66-A552-569056AFE8DC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A609D87-641E-4D66-A552-569056AFE8DC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{233AA1B2-0127-4EE4-AE3D-4CC6CFD6C34B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{233AA1B2-0127-4EE4-AE3D-4CC6CFD6C34B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{233AA1B2-0127-4EE4-AE3D-4CC6CFD6C34B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{233AA1B2-0127-4EE4-AE3D-4CC6CFD6C34B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{233AA1B2-0127-4EE4-AE3D-4CC6CFD6C34B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{233AA1B2-0127-4EE4-AE3D-4CC6CFD6C34B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,4 +9,6 @@ TestConsole/bin
 TestConsole/obj
 TestMotor/bin
 TestMotor/obj
+TestDrive/bin
+TestDrive/obj
 **.csproj.user

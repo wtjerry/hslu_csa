@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonRunParameters.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommonRunParameters.designer.cs">
+      <DependentUpon>CommonRunParameters.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConsoleView.cs">
       <SubType>usercontrol</SubType>
     </Compile>
@@ -54,6 +60,12 @@
     </Compile>
     <Compile Include="DriveCtrlView.designer.cs">
       <DependentUpon>DriveCtrlView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DriveView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DriveView.designer.cs">
+      <DependentUpon>DriveView.cs</DependentUpon>
     </Compile>
     <Compile Include="LedView.cs">
       <SubType>usercontrol</SubType>
@@ -87,11 +99,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CommonRunParameters.resx">
+      <DependentUpon>CommonRunParameters.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConsoleView.resx">
       <DependentUpon>ConsoleView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DriveCtrlView.resx">
       <DependentUpon>DriveCtrlView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DriveView.resx">
+      <DependentUpon>DriveView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LedView.resx">
       <DependentUpon>LedView.cs</DependentUpon>
