@@ -79,6 +79,10 @@
     <Compile Include="MotorCtrlView.designer.cs">
       <DependentUpon>MotorCtrlView.cs</DependentUpon>
     </Compile>
+    <Compile Include="NumberKeyboard.cs" />
+    <Compile Include="NumberKeyboard.Designer.cs">
+      <DependentUpon>NumberKeyboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -116,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MotorCtrlView.resx">
       <DependentUpon>MotorCtrlView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NumberKeyboard.resx">
+      <DependentUpon>NumberKeyboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>

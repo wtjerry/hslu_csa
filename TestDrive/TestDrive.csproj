@@ -63,6 +63,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RobotCtrl\RobotCtrl.csproj">
+      <Project>{43DB3252-652D-4FEC-A5B4-5061937091E6}</Project>
+      <Name>RobotCtrl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RobotIO\RobotIO.csproj">
+      <Project>{E7BE3E52-1C22-41C5-9976-EBDD4ED19349}</Project>
+      <Name>RobotIO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RobotView\RobotView.csproj">
+      <Project>{6A84FA6B-692A-4769-8298-811DDD654F3C}</Project>
+      <Name>RobotView</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkTargetsVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,4 +1,6 @@
-﻿namespace TestDrive
+﻿using RobotView;
+
+namespace TestDrive
 {
     partial class Form1
     {
@@ -35,9 +37,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Text = "Form1";
             this.AutoScroll = true;
+
+            this.driveView = new DriveView();
+            this.Controls.Add(this.driveView);
         }
 
         #endregion
+
+        private DriveView driveView;
     }
 }
 

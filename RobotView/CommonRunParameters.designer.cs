@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace RobotView
 {
     partial class CommonRunParameters
@@ -33,7 +35,7 @@ namespace RobotView
             this.label18 = new System.Windows.Forms.Label();
             this.buttonSpeed = new System.Windows.Forms.Button();
             this.buttonAcceleration = new System.Windows.Forms.Button();
-            this.upDownAcceleration = new RobotView.NumericUpDownExt();
+            this.upDownAcceleration = new NumericUpDown();
             this.SuspendLayout();
             // 
             // label16
@@ -147,6 +149,6 @@ namespace RobotView
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button buttonSpeed;
         private System.Windows.Forms.Button buttonAcceleration;
-        private NumericUpDownExt upDownAcceleration;
+        private NumericUpDown upDownAcceleration;
     }
 }
