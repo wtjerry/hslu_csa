@@ -91,6 +91,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="RunArcView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RunArcView.designer.cs">
+      <DependentUpon>RunArcView.cs</DependentUpon>
+    </Compile>
     <Compile Include="RunLineView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -142,6 +148,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RunArcView.resx">
+      <DependentUpon>RunArcView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RunLineView.resx">
       <DependentUpon>RunLineView.cs</DependentUpon>

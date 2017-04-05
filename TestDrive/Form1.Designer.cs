@@ -36,6 +36,7 @@ namespace TestDrive
             this.commonRunParameters = new RobotView.CommonRunParameters();
             this.runLineView = new RobotView.RunLineView();
             this.runTurnView = new RobotView.RunTurnView();
+            this.runArcView = new RobotView.RunArcView();
             this.SuspendLayout();
             // 
             // driveView
@@ -71,16 +72,25 @@ namespace TestDrive
             this.runTurnView.Size = new System.Drawing.Size(430, 51);
             this.runTurnView.TabIndex = 2;
             // 
+            // runArcView
+            // 
+            this.runArcView.Drive = null;
+            this.runArcView.Location = new System.Drawing.Point(3, 501);
+            this.runArcView.Name = "runArcView";
+            this.runArcView.Size = new System.Drawing.Size(457, 136);
+            this.runArcView.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(671, 566);
+            this.ClientSize = new System.Drawing.Size(580, 688);
             this.Controls.Add(this.driveView);
             this.Controls.Add(this.commonRunParameters);
             this.Controls.Add(this.runLineView);
             this.Controls.Add(this.runTurnView);
+            this.Controls.Add(this.runArcView);
             this.Menu = this.mainMenu1;
             this.Name = "Form1";
             this.Text = "Form1";
@@ -94,6 +104,7 @@ namespace TestDrive
         private CommonRunParameters commonRunParameters;
         private RunLineView runLineView;
         private RunTurnView runTurnView;
+        private RunArcView runArcView;
     }
 }
 

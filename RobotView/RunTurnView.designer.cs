@@ -75,10 +75,12 @@ namespace RobotView
             this.negativeAngleRadioButton.Name = "negativeAngleRadioButton";
             this.negativeAngleRadioButton.Size = new System.Drawing.Size(36, 20);
             this.negativeAngleRadioButton.TabIndex = 25;
+            this.negativeAngleRadioButton.TabStop = false;
             this.negativeAngleRadioButton.Text = "-";
             // 
             // positiveAngleRadioButton
             // 
+            this.positiveAngleRadioButton.Checked = true;
             this.positiveAngleRadioButton.Location = new System.Drawing.Point(11, 2);
             this.positiveAngleRadioButton.Name = "positiveAngleRadioButton";
             this.positiveAngleRadioButton.Size = new System.Drawing.Size(36, 20);

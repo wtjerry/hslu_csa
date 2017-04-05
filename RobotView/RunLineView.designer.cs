@@ -75,10 +75,12 @@ namespace RobotView
             this.negativeLengthRadioButton.Name = "negativeLengthRadioButton";
             this.negativeLengthRadioButton.Size = new System.Drawing.Size(36, 20);
             this.negativeLengthRadioButton.TabIndex = 25;
+            this.negativeLengthRadioButton.TabStop = false;
             this.negativeLengthRadioButton.Text = "-";
             // 
             // positiveLengthRadioButton
             // 
+            this.positiveLengthRadioButton.Checked = true;
             this.positiveLengthRadioButton.Location = new System.Drawing.Point(11, 2);
             this.positiveLengthRadioButton.Name = "positiveLengthRadioButton";
             this.positiveLengthRadioButton.Size = new System.Drawing.Size(36, 20);
