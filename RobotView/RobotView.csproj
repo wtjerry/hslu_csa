@@ -97,6 +97,12 @@
     <Compile Include="RunLineView.designer.cs">
       <DependentUpon>RunLineView.cs</DependentUpon>
     </Compile>
+    <Compile Include="RunTurnView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RunTurnView.designer.cs">
+      <DependentUpon>RunTurnView.cs</DependentUpon>
+    </Compile>
     <Compile Include="SwitchView.cs">
       <SubType>usercontrol</SubType>
     </Compile>
@@ -139,6 +145,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RunLineView.resx">
       <DependentUpon>RunLineView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RunTurnView.resx">
+      <DependentUpon>RunTurnView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SwitchView.resx">
       <DependentUpon>SwitchView.cs</DependentUpon>

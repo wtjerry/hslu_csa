@@ -35,6 +35,7 @@ namespace TestDrive
             this.driveView = new RobotView.DriveView();
             this.commonRunParameters = new RobotView.CommonRunParameters();
             this.runLineView = new RobotView.RunLineView();
+            this.runTurnView = new RobotView.RunTurnView();
             this.SuspendLayout();
             // 
             // driveView
@@ -62,6 +63,14 @@ namespace TestDrive
             this.runLineView.Size = new System.Drawing.Size(404, 50);
             this.runLineView.TabIndex = 1;
             // 
+            // runTurnView
+            // 
+            this.runTurnView.Drive = null;
+            this.runTurnView.Location = new System.Drawing.Point(3, 444);
+            this.runTurnView.Name = "runTurnView";
+            this.runTurnView.Size = new System.Drawing.Size(430, 51);
+            this.runTurnView.TabIndex = 2;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -71,6 +80,7 @@ namespace TestDrive
             this.Controls.Add(this.driveView);
             this.Controls.Add(this.commonRunParameters);
             this.Controls.Add(this.runLineView);
+            this.Controls.Add(this.runTurnView);
             this.Menu = this.mainMenu1;
             this.Name = "Form1";
             this.Text = "Form1";
@@ -83,6 +93,7 @@ namespace TestDrive
         private DriveView driveView;
         private CommonRunParameters commonRunParameters;
         private RunLineView runLineView;
+        private RunTurnView runTurnView;
     }
 }
 

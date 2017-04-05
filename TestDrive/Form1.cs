@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using RobotCtrl;
 
 namespace TestDrive
@@ -16,11 +9,26 @@ namespace TestDrive
         {
             InitializeComponent();
 
-            this.commonRunParameters.AccelerationChanged +=
-                (sender, args) => this.runLineView.updateAcceleration(this.commonRunParameters.Acceleration);
-            this.commonRunParameters.SpeedChanged +=
-                (sender, args) => this.runLineView.updateSpeed(this.commonRunParameters.Speed);
-            this.runLineView.Drive = new Drive();
+            this.commonRunParameters.AccelerationChanged += (sender, args) => updateRunUserControlsWithNewAcceleration();
+            this.commonRunParameters.SpeedChanged += (sender, args) => updateRunUserControlsWithNewSpeed();
+
+            var drive = new Drive();
+            this.runLineView.Drive = drive;
+            this.runTurnView.Drive = drive;
+        }
+
+        private void updateRunUserControlsWithNewAcceleration()
+        {
+            var acceleration = this.commonRunParameters.Acceleration;
+            this.runLineView.updateAcceleration(acceleration);
+            this.runTurnView.updateAcceleration(acceleration);
+        }
+
+        private void updateRunUserControlsWithNewSpeed()
+        {
+            var speed = this.commonRunParameters.Speed;
+            this.runLineView.updateSpeed(speed);
+            this.runTurnView.updateSpeed(speed);
         }
     }
 }
