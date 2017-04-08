@@ -11,4 +11,6 @@ TestMotor/bin
 TestMotor/obj
 TestDrive/bin
 TestDrive/obj
+Testat/bin
+Testat/obj
 **.csproj.user
