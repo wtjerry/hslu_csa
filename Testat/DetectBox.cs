@@ -22,6 +22,7 @@ namespace Testat
         private readonly Robot robot;
         private readonly Label progressLabel;
         private readonly Label currentPositionLabel;
+        private readonly BlinkLEDs ledBlinking;
 
 
         private int CountMeasurementsInRange = 0;
@@ -30,12 +31,13 @@ namespace Testat
         public DetectBox(
             Robot robot,
             Label progressLabel,
-            Label currentPositionLabel)
+            Label currentPositionLabel, 
+            BlinkLEDs ledBlinking)
         {
             this.robot = robot;
             this.progressLabel = progressLabel;
             this.currentPositionLabel = currentPositionLabel;
-            
+            this.ledBlinking = ledBlinking;
         }
 
         public void Run()
@@ -155,7 +157,7 @@ namespace Testat
 
 
             this.robot.Position = new PositionInfo(0, 0, 0);
-
+            this.ledBlinking.Stop();
         }
 
         private void ResetLabels()
