@@ -36,7 +36,6 @@
             this.radarLabel = new System.Windows.Forms.Label();
             this.radarButton = new System.Windows.Forms.Button();
             this.progressLabel = new System.Windows.Forms.Label();
-            this.currentRadarLabel = new System.Windows.Forms.Label();
             this.currentPositionLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -88,19 +87,11 @@
             this.progressLabel.Name = "progressLabel";
             this.progressLabel.Size = new System.Drawing.Size(388, 51);
             // 
-            // currentRadarLabel
-            // 
-            this.currentRadarLabel.BackColor = System.Drawing.Color.Red;
-            this.currentRadarLabel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular);
-            this.currentRadarLabel.Location = new System.Drawing.Point(3, 258);
-            this.currentRadarLabel.Name = "currentRadarLabel";
-            this.currentRadarLabel.Size = new System.Drawing.Size(612, 44);
-            // 
             // currentPositionLabel
             // 
             this.currentPositionLabel.BackColor = System.Drawing.Color.Red;
             this.currentPositionLabel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular);
-            this.currentPositionLabel.Location = new System.Drawing.Point(3, 317);
+            this.currentPositionLabel.Location = new System.Drawing.Point(3, 268);
             this.currentPositionLabel.Name = "currentPositionLabel";
             this.currentPositionLabel.Size = new System.Drawing.Size(612, 44);
             // 
@@ -111,7 +102,6 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(638, 455);
             this.Controls.Add(this.currentPositionLabel);
-            this.Controls.Add(this.currentRadarLabel);
             this.Controls.Add(this.progressLabel);
             this.Controls.Add(this.radarLabel);
             this.Controls.Add(this.radarButton);
@@ -133,7 +123,6 @@
         private System.Windows.Forms.Label radarLabel;
         private System.Windows.Forms.Button radarButton;
         private System.Windows.Forms.Label progressLabel;
-        private System.Windows.Forms.Label currentRadarLabel;
         private System.Windows.Forms.Label currentPositionLabel;
     }
 }

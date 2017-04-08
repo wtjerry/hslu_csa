@@ -25,7 +25,7 @@ namespace Testat
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            var detectBox = new DetectBox(this.robot, this.currentRadarLabel, this.progressLabel, this.currentPositionLabel);
+            var detectBox = new DetectBox(this.robot, this.progressLabel, this.currentPositionLabel);
             new Thread(() => detectBox.Run()).Start();
         }
         

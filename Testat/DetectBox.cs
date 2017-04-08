@@ -11,16 +11,15 @@ namespace Testat
 {
     public class DetectBox
     {
-        private const float Acceleration = 0.5f;
+        private const float Acceleration = 0.8f;
         private const float Speed = 0.1f;
-        private const int NumberOfMeasurementsInRangeForBoxToBeDetected = 3;
-        private const int MeasurementInterval = 50;
+        private const int NumberOfMeasurementsInRangeForBoxToBeDetected = 10;
+        private const int MeasurementInterval = 80;
 
         const float DesiredXLength = 2.0f;
         const float DesiredYLength = 1.5f;
 
         private readonly Robot robot;
-        private readonly Label currentRadarLabel;
         private readonly Label progressLabel;
         private readonly Label currentPositionLabel;
 
@@ -30,12 +29,10 @@ namespace Testat
 
         public DetectBox(
             Robot robot,
-            Label currentRadarLabel,
             Label progressLabel,
             Label currentPositionLabel)
         {
             this.robot = robot;
-            this.currentRadarLabel = currentRadarLabel;
             this.progressLabel = progressLabel;
             this.currentPositionLabel = currentPositionLabel;
             
@@ -52,7 +49,10 @@ namespace Testat
             var startYPositionFound = false;
             var endYPositionFound = false;
 
+
             this.robot.Position = new PositionInfo(0, 0, 0);
+            ResetLabels();
+
 
             this.robot.Drive.DriveCtrl.PowerLeft = true;
             this.robot.Drive.DriveCtrl.PowerRight = true;
@@ -153,6 +153,15 @@ namespace Testat
             this.robot.Drive.DriveCtrl.PowerLeft = false;
             this.robot.Drive.DriveCtrl.PowerRight = false;
 
+
+            this.robot.Position = new PositionInfo(0, 0, 0);
+
+        }
+
+        private void ResetLabels()
+        {
+            this.Invoke(() => this.progressLabel.Text = string.Empty);
+            this.Invoke(() => this.currentPositionLabel.Text = string.Empty);
         }
 
         private static void Sleep()
@@ -163,7 +172,6 @@ namespace Testat
         private bool ThereIsAnObject()
         {
             var radarDistance = this.robot.Radar.Distance;
-            this.updateCurrentRadarLabel(radarDistance.ToString(CultureInfo.InvariantCulture));
             if (radarDistance > 0.1 && radarDistance < 1.5)
             {
                 if (this.CountMeasurementsInRange == NumberOfMeasurementsInRangeForBoxToBeDetected)
@@ -183,8 +191,7 @@ namespace Testat
         private bool ThereIsNoObject()
         {
             var radarDistance = this.robot.Radar.Distance;
-            this.updateCurrentRadarLabel(radarDistance.ToString(CultureInfo.InvariantCulture));
-            if (radarDistance < 0.1 && radarDistance > 1.5)
+            if (radarDistance < 0.1 || radarDistance > 1.5)
             {
                 if (this.CountMeasurementsInRange == NumberOfMeasurementsInRangeForBoxToBeDetected)
                 {
@@ -211,43 +218,21 @@ namespace Testat
 
         private void updateProgressLabel(string data)
         {
-            if (this.progressLabel.InvokeRequired)
-            {
-                this.progressLabel.Invoke((Action)(() => this.progressLabel.Text += data));
-            }
+            this.Invoke(() => this.progressLabel.Text += data);
         }
 
 
         private void updateCurrentPositionLabel(string data)
         {
+            this.Invoke(() => this.currentPositionLabel.Text = data);
+        }
+
+        private void Invoke(Action action)
+        {
             if (this.currentPositionLabel.InvokeRequired)
             {
-                this.currentPositionLabel.Invoke((Action)(() => this.currentPositionLabel.Text = data));
+                this.currentPositionLabel.Invoke(action);
             }
         }
-
-
-        private int count = 0;
-
-        private void updateCurrentRadarLabel(string data)
-        {
-            if (this.currentRadarLabel.InvokeRequired)
-            {
-                this.currentRadarLabel.Invoke((Action)(() =>
-                {
-                    if (count < 10)
-                    {
-                        this.currentRadarLabel.Text += $" | {data}";
-                        count++;
-                    }
-                    else
-                    {
-                        count = 0;
-                        this.currentRadarLabel.Text = $" | {data}";
-                    }
-                }));
-            }
-        }
-
     }
 }
