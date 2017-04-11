@@ -64,20 +64,21 @@ namespace Testat
 
 
             this.robot.Drive.RunLine(DesiredXLength, Speed, Acceleration);
+            this.robot.Drive.MotorCtrlLeft.ResetTicks();
             while (!this.robot.Drive.Done)
             {
-                this.updateCurrentPositionLabel(this.robot.Position.X.ToString(CultureInfo.InvariantCulture));
+                this.updateCurrentPositionLabel(this.getDistance().ToString(CultureInfo.InvariantCulture));
 
                 if (!startXPositionFound && this.ThereIsAnObject())
                 {
-                    startXPositionOfObject = this.robot.Position.X;
-                    var progressText = $" | startXPos: {startXPositionOfObject}";
+                    startXPositionOfObject = (float) this.getDistance();
+                    var progressText = $" | startXPos: {this.getDistance()}";
                     this.updateProgressLabel(progressText);
                     startXPositionFound = true;
                 }
                 if (startXPositionFound && !endXPositionFound && this.ThereIsNoObject())
                 {
-                    endXPositionOfObject = this.robot.Position.X;
+                    endXPositionOfObject = (float)this.getDistance();
                     var progressText = $" | endXPos: {endXPositionOfObject}";
                     this.updateProgressLabel(progressText);
                     endXPositionFound = true;
@@ -88,23 +89,24 @@ namespace Testat
 
             Turn90DegreesLeft();
             this.robot.Position = new PositionInfo(0, 0, 0);
+            this.robot.Drive.MotorCtrlLeft.ResetTicks();
 
 
             this.robot.Drive.RunLine(DesiredYLength, Speed, Acceleration);
             while (!this.robot.Drive.Done)
             {
-                this.updateCurrentPositionLabel(this.robot.Position.X.ToString(CultureInfo.InvariantCulture));
+                this.updateCurrentPositionLabel(this.getDistance().ToString(CultureInfo.InvariantCulture));
 
                 if (!startYPositionFound && this.ThereIsAnObject())
                 {
-                    startYPositionOfObject = this.robot.Position.X;
+                    startYPositionOfObject = (float)this.getDistance();
                     var progressText = $" | startYPos: {startYPositionOfObject}";
                     this.updateProgressLabel(progressText);
                     startYPositionFound = true;
                 }
                 if (startYPositionFound && !endYPositionFound && this.ThereIsNoObject())
                 {
-                    endYPositionOfObject = this.robot.Position.X;
+                    endYPositionOfObject = (float)this.getDistance();
                     var progressText = $" | endYPos: {endYPositionOfObject}";
                     this.updateProgressLabel(progressText);
                     endYPositionFound = true;
@@ -115,6 +117,7 @@ namespace Testat
 
             Turn90DegreesLeft();
             this.robot.Position = new PositionInfo(0, 0, 0);
+            this.robot.Drive.MotorCtrlLeft.ResetTicks();
 
 
             this.robot.Drive.RunLine(DesiredXLength, Speed, Acceleration);
@@ -207,6 +210,11 @@ namespace Testat
                 }
             }
             return false;
+        }
+
+        private double getDistance()
+        {
+            return (this.robot.Drive.MotorCtrlLeft.Ticks * -1d) / 28700d * 23.87d;
         }
 
         private void Turn90DegreesLeft()
