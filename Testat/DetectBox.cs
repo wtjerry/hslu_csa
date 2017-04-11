@@ -15,6 +15,8 @@ namespace Testat
         private const float Speed = 0.1f;
         private const int NumberOfMeasurementsInRangeForBoxToBeDetected = 10;
         private const int MeasurementInterval = 20;
+        private const int NormalisationConstant = 5;
+        private const int ApproximateSideLenghtCorrection = -20;
 
         const float DesiredXLength = 2.0f;
         const float DesiredYLength = 1.5f;
@@ -79,7 +81,7 @@ namespace Testat
             }
 
             var normalizedMeasurementsForFirstSide = NormalizedMeasurements(firstSideMeasurements);
-            var lengthOfFirstSide = CalculateSideLength(normalizedMeasurementsForFirstSide);
+            var lengthOfFirstSide = CalculateSideLength(normalizedMeasurementsForFirstSide) + ApproximateSideLenghtCorrection;
             var lengthFirstSideText = $" | NEW FANCY CALCULATED FIRST LENGHT: {lengthOfFirstSide}";
             this.updateProgressLabel(lengthFirstSideText);
 
@@ -95,15 +97,18 @@ namespace Testat
                 var distance = this.getDistance();
                 this.updateCurrentPositionLabel(distance.ToString(CultureInfo.InvariantCulture));
                 var radarDistance = this.robot.Radar.Distance;
-                firstSideMeasurements.Add(new RadarDistanceAndMotorDistanceTuple(radarDistance, distance));
+                secondSideMeasurements.Add(new RadarDistanceAndMotorDistanceTuple(radarDistance, distance));
                 Sleep();
             }
 
 
             var normalizedMeasurementsForSecondSide = NormalizedMeasurements(secondSideMeasurements);
-            var lengthOfSecondSide = CalculateSideLength(normalizedMeasurementsForSecondSide);
+            var lengthOfSecondSide = CalculateSideLength(normalizedMeasurementsForSecondSide) + ApproximateSideLenghtCorrection;
             var lengthSecondSideText = $" | NEW FANCY CALCULATED SECOND LENGHT: {lengthOfSecondSide}";
             this.updateProgressLabel(lengthSecondSideText);
+
+            var areaOfBopxText = $" | NEW FANCY CALCULATED AREA: {lengthOfFirstSide * lengthOfSecondSide}";
+            this.updateProgressLabel(areaOfBopxText);
 
             Turn90DegreesLeft();
             this.robot.Position = new PositionInfo(0, 0, 0);
@@ -131,7 +136,7 @@ namespace Testat
             Turn90DegreesLeft();
             this.robot.Position = new PositionInfo(0, 0, 0);
 
-            
+
             var objectXLength = endXPositionOfObject - startXPositionOfObject;
             var progressText1 = $" | xLength: {objectXLength}";
             this.updateProgressLabel(progressText1);
@@ -173,16 +178,24 @@ namespace Testat
                     startOfBox = currentMeasurement.MotorDistance;
                     startOfBoxFound = true;
                 }
+            }
 
+
+            for (var i = normalizedMeasurementsForFirstSide.Count - 1; i > 1 ; i--)
+            {
+                var previousMeasurement = normalizedMeasurementsForFirstSide[i - 1];
+                var currentMeasurement = normalizedMeasurementsForFirstSide[i];
                 var relativeRadarDeviationOfCurrentToPrevious = currentMeasurement.RadarDistance / previousMeasurement.RadarDistance;
-                if (startOfBoxFound 
-                    && relativeRadarDeviationOfCurrentToPrevious > 1.1)
+                if (relativeRadarDeviationOfCurrentToPrevious < 1.1
+                    && relativeRadarDeviationOfCurrentToPrevious > 0.9
+                    && currentMeasurement.RadarDistance < 1.5
+                    && currentMeasurement.RadarDistance > 0.1)
                 {
                     endOfBox = previousMeasurement.MotorDistance;
                     break;
                 }
             }
-
+            
             var length = endOfBox - startOfBox;
 
             return length;
@@ -190,8 +203,6 @@ namespace Testat
 
         private static List<RadarDistanceAndMotorDistanceTuple> NormalizedMeasurements(List<RadarDistanceAndMotorDistanceTuple> firstSideMeasurements)
         {
-            const int NormalisationConstant = 4;
-
             var normalizedMeasurements = new List<RadarDistanceAndMotorDistanceTuple>();
             for (var i = 0; i < firstSideMeasurements.Count; i += NormalisationConstant)
             {
