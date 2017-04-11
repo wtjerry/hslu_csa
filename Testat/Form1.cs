@@ -21,20 +21,26 @@ namespace Testat
             InitializeComponent();
 
             this.robot = new Robot();
+            this.robot.RobotConsole[Switches.Switch1].SwitchStateChanged += (sender, args) => this.RunBoxDetection();
         }
 
         private void startButton_Click(object sender, EventArgs e)
+        {
+            this.RunBoxDetection();
+        }
+
+        private void RunBoxDetection()
         {
             var ledBlinking = new BlinkLEDs(this.robot);
             var ledBlinkingThread = new Thread(() => ledBlinking.Run());
 
             var detectBox = new DetectBox(this.robot, this.progressLabel, this.currentPositionLabel, ledBlinking);
-            var detectBoxThread = new Thread(() => detectBox.Run());          
+            var detectBoxThread = new Thread(() => detectBox.Run());
 
             ledBlinkingThread.Start();
             detectBoxThread.Start();
         }
-        
+
         private void positionButton_Click(object sender, EventArgs e)
         {
             var robotPosition = this.robot.Position;
