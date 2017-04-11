@@ -14,7 +14,7 @@ namespace Testat
         private const float Acceleration = 0.8f;
         private const float Speed = 0.1f;
         private const int NumberOfMeasurementsInRangeForBoxToBeDetected = 10;
-        private const int MeasurementInterval = 80;
+        private const int MeasurementInterval = 20;
 
         const float DesiredXLength = 2.0f;
         const float DesiredYLength = 1.5f;
@@ -52,6 +52,10 @@ namespace Testat
             var endYPositionFound = false;
 
 
+            var firstSideMeasurements = new List<RadarDistanceAndMotorDistanceTuple>();
+            var secondSideMeasurements = new List<RadarDistanceAndMotorDistanceTuple>();
+
+
             this.robot.Position = new PositionInfo(0, 0, 0);
             ResetLabels();
 
@@ -67,24 +71,17 @@ namespace Testat
             this.robot.Drive.MotorCtrlLeft.ResetTicks();
             while (!this.robot.Drive.Done)
             {
-                this.updateCurrentPositionLabel(this.getDistance().ToString(CultureInfo.InvariantCulture));
-
-                if (!startXPositionFound && this.ThereIsAnObject())
-                {
-                    startXPositionOfObject = (float) this.getDistance();
-                    var progressText = $" | startXPos: {this.getDistance()}";
-                    this.updateProgressLabel(progressText);
-                    startXPositionFound = true;
-                }
-                if (startXPositionFound && !endXPositionFound && this.ThereIsNoObject())
-                {
-                    endXPositionOfObject = (float)this.getDistance();
-                    var progressText = $" | endXPos: {endXPositionOfObject}";
-                    this.updateProgressLabel(progressText);
-                    endXPositionFound = true;
-                }
+                var distance = this.getDistance();
+                this.updateCurrentPositionLabel(distance.ToString(CultureInfo.InvariantCulture));
+                var radarDistance = this.robot.Radar.Distance;
+                firstSideMeasurements.Add(new RadarDistanceAndMotorDistanceTuple(radarDistance, distance));
                 Sleep();
             }
+
+            var normalizedMeasurementsForFirstSide = NormalizedMeasurements(firstSideMeasurements);
+            var lengthOfFirstSide = CalculateSideLength(normalizedMeasurementsForFirstSide);
+            var lengthFirstSideText = $" | NEW FANCY CALCULATED FIRST LENGHT: {lengthOfFirstSide}";
+            this.updateProgressLabel(lengthFirstSideText);
 
 
             Turn90DegreesLeft();
@@ -95,25 +92,18 @@ namespace Testat
             this.robot.Drive.RunLine(DesiredYLength, Speed, Acceleration);
             while (!this.robot.Drive.Done)
             {
-                this.updateCurrentPositionLabel(this.getDistance().ToString(CultureInfo.InvariantCulture));
-
-                if (!startYPositionFound && this.ThereIsAnObject())
-                {
-                    startYPositionOfObject = (float)this.getDistance();
-                    var progressText = $" | startYPos: {startYPositionOfObject}";
-                    this.updateProgressLabel(progressText);
-                    startYPositionFound = true;
-                }
-                if (startYPositionFound && !endYPositionFound && this.ThereIsNoObject())
-                {
-                    endYPositionOfObject = (float)this.getDistance();
-                    var progressText = $" | endYPos: {endYPositionOfObject}";
-                    this.updateProgressLabel(progressText);
-                    endYPositionFound = true;
-                }
+                var distance = this.getDistance();
+                this.updateCurrentPositionLabel(distance.ToString(CultureInfo.InvariantCulture));
+                var radarDistance = this.robot.Radar.Distance;
+                firstSideMeasurements.Add(new RadarDistanceAndMotorDistanceTuple(radarDistance, distance));
                 Sleep();
             }
 
+
+            var normalizedMeasurementsForSecondSide = NormalizedMeasurements(secondSideMeasurements);
+            var lengthOfSecondSide = CalculateSideLength(normalizedMeasurementsForSecondSide);
+            var lengthSecondSideText = $" | NEW FANCY CALCULATED SECOND LENGHT: {lengthOfSecondSide}";
+            this.updateProgressLabel(lengthSecondSideText);
 
             Turn90DegreesLeft();
             this.robot.Position = new PositionInfo(0, 0, 0);
@@ -141,7 +131,7 @@ namespace Testat
             Turn90DegreesLeft();
             this.robot.Position = new PositionInfo(0, 0, 0);
 
-
+            
             var objectXLength = endXPositionOfObject - startXPositionOfObject;
             var progressText1 = $" | xLength: {objectXLength}";
             this.updateProgressLabel(progressText1);
@@ -161,6 +151,59 @@ namespace Testat
 
             this.robot.Position = new PositionInfo(0, 0, 0);
             this.ledBlinking.Stop();
+        }
+
+        private static double CalculateSideLength(List<RadarDistanceAndMotorDistanceTuple> normalizedMeasurementsForFirstSide)
+        {
+            var startOfBox = double.NaN;
+            var endOfBox = double.NaN;
+            var startOfBoxFound = false;
+            for (var i = 1; i < normalizedMeasurementsForFirstSide.Count; i++)
+            {
+                var previousMeasurement = normalizedMeasurementsForFirstSide[i - 1];
+                var currentMeasurement = normalizedMeasurementsForFirstSide[i];
+                var relativeRadarDeviationOfPreviousToCurrent = previousMeasurement.RadarDistance / currentMeasurement.RadarDistance;
+                if (
+                    startOfBoxFound == false 
+                    && relativeRadarDeviationOfPreviousToCurrent < 1.1 
+                    && relativeRadarDeviationOfPreviousToCurrent > 0.9
+                    && currentMeasurement.RadarDistance < 1.5
+                    && currentMeasurement.RadarDistance > 0.1)
+                {
+                    startOfBox = currentMeasurement.MotorDistance;
+                    startOfBoxFound = true;
+                }
+
+                var relativeRadarDeviationOfCurrentToPrevious = currentMeasurement.RadarDistance / previousMeasurement.RadarDistance;
+                if (startOfBoxFound 
+                    && relativeRadarDeviationOfCurrentToPrevious > 1.1)
+                {
+                    endOfBox = previousMeasurement.MotorDistance;
+                    break;
+                }
+            }
+
+            var length = endOfBox - startOfBox;
+
+            return length;
+        }
+
+        private static List<RadarDistanceAndMotorDistanceTuple> NormalizedMeasurements(List<RadarDistanceAndMotorDistanceTuple> firstSideMeasurements)
+        {
+            const int NormalisationConstant = 4;
+
+            var normalizedMeasurements = new List<RadarDistanceAndMotorDistanceTuple>();
+            for (var i = 0; i < firstSideMeasurements.Count; i += NormalisationConstant)
+            {
+                if (i + NormalisationConstant < firstSideMeasurements.Count)
+                {
+                    var fiveMeasurements = firstSideMeasurements.GetRange(i, NormalisationConstant);
+                    var radarDistanceAverage = fiveMeasurements.Average(x => x.RadarDistance);
+                    var motorDistanceAverage = fiveMeasurements.Average(x => x.MotorDistance);
+                    normalizedMeasurements.Add(new RadarDistanceAndMotorDistanceTuple(radarDistanceAverage, motorDistanceAverage));
+                }
+            }
+            return normalizedMeasurements;
         }
 
         private void ResetLabels()
@@ -243,6 +286,18 @@ namespace Testat
             {
                 this.currentPositionLabel.Invoke(action);
             }
+        }
+    }
+
+    public class RadarDistanceAndMotorDistanceTuple
+    {
+        public double RadarDistance { get; private set; }
+        public double MotorDistance { get; private set; }
+
+        public RadarDistanceAndMotorDistanceTuple(double radarDistance, double motorDistance)
+        {
+            this.RadarDistance = radarDistance;
+            this.MotorDistance = motorDistance;
         }
     }
 }
