@@ -8,7 +8,7 @@ namespace Testat2.Tracks
 {
     internal class NullTrack : Track
     {
-        public NullTrack(Robot robot) : base(robot)
+        public NullTrack(Robot robot, ObstacleDetector obstacleDetector) : base(robot, obstacleDetector)
         {
         }
 

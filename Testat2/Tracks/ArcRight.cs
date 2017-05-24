@@ -7,7 +7,7 @@ namespace Testat2.Tracks
         private readonly float angle;
         private readonly float radius;
 
-        internal ArcRight(Robot robot, float angle, float radius) : base(robot)
+        internal ArcRight(Robot robot, ObstacleDetector obstacleDetector, float angle, float radius) : base(robot, obstacleDetector)
         {
             this.angle = angle;
             this.radius = radius;

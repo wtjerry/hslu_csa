@@ -23,7 +23,8 @@ namespace Testat2
 
                 var robot = new Robot();
                 var trackStorage = new TrackStorage();
-                var trackFactory = new TrackFactory(robot);
+                var obstacleDetector = new ObstacleDetector(robot);
+                var trackFactory = new TrackFactory(robot, obstacleDetector);
                 var trackCreator = new TrackCreator(trackFactory);
                 var trackExecutor = new TrackExecutor(robot);
                 var httpPageCreator = new HttpPageCreator();

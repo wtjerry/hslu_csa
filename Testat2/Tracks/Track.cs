@@ -7,8 +7,11 @@ namespace Testat2.Tracks
 {
     internal abstract class Track
     {
-        protected Track(Robot robot)
+        private readonly ObstacleDetector obstacleDetector;
+
+        protected Track(Robot robot, ObstacleDetector obstacleDetector)
         {
+            this.obstacleDetector = obstacleDetector;
             this.Robot = robot;
             this.Acceleration = 0.3f;
             this.Speed = 0.5f;
@@ -27,6 +30,11 @@ namespace Testat2.Tracks
             while (!this.Robot.Drive.Done)
             {
                 Thread.Sleep(50);
+                var isAnObstacleBlockingThePath = this.obstacleDetector.IsAnObstacleBlockingThePath();
+                if (isAnObstacleBlockingThePath)
+                {
+                    return;
+                }
             }
         }
 

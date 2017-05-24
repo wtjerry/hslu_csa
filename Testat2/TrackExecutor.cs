@@ -8,7 +8,6 @@ namespace Testat2
     internal class TrackExecutor
     {
         private readonly Robot robot;
-        private TrackRunner trackRunner;
 
         internal TrackExecutor(Robot robot)
         {

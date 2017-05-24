@@ -6,7 +6,7 @@ namespace Testat2.Tracks
     {
         private readonly float angle;
 
-        internal TurnLeft(Robot robot, float angle) : base(robot)
+        internal TurnLeft(Robot robot, ObstacleDetector obstacleDetector, float angle) : base(robot, obstacleDetector)
         {
             this.angle = angle;
         }

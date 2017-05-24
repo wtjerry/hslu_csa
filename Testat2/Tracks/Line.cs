@@ -6,7 +6,7 @@ namespace Testat2.Tracks
     {
         private readonly float distance;
 
-        internal Line(Robot robot, float distance) : base(robot)
+        internal Line(Robot robot, ObstacleDetector obstacleDetector, float distance) : base(robot, obstacleDetector)
         {
             this.distance = distance;
         }

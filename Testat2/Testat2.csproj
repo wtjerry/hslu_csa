@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="HttpPageCreator.cs" />
     <Compile Include="HttpServer.cs" />
+    <Compile Include="ObstacleDetector.cs" />
     <Compile Include="TrackFactory.cs" />
     <Compile Include="TrackRunner.cs" />
     <Compile Include="TrackCreator.cs" />
