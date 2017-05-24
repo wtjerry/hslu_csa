@@ -45,8 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SavedTracksExecutor.cs" />
+    <Compile Include="TrackRunner.cs" />
     <Compile Include="TrackCreator.cs" />
+    <Compile Include="TrackExecutor.cs" />
     <Compile Include="TrackStorage.cs" />
     <Compile Include="Tracks\ArcLeft.cs" />
     <Compile Include="CommandReceiverHandler.cs" />

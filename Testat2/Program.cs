@@ -24,10 +24,11 @@ namespace Testat2
                 var robot = new Robot();
                 var trackStorage = new TrackStorage();
                 var trackCreator = new TrackCreator(robot);
-                var savedTracksExecutor = new SavedTracksExecutor(trackStorage, trackCreator, robot);
+                var trackExecutor = new TrackExecutor(robot);
+                var savedTracksExecutor = new TrackRunner(trackStorage, trackCreator, trackExecutor);
                 var tcpClient = listen.AcceptTcpClient();
                 var commandReceiverHandler = new CommandReceiverHandler(tcpClient, trackStorage, savedTracksExecutor);
-                new Thread(commandReceiverHandler.Do).Start();
+                new Thread(commandReceiverHandler.Handle).Start();
             }
         }
     }

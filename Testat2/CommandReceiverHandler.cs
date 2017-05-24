@@ -3,31 +3,31 @@ using System.Net.Sockets;
 
 namespace Testat2
 {
-    class CommandReceiverHandler
+    internal class CommandReceiverHandler
     {
         private readonly TcpClient client;
         private readonly TrackStorage trackStorage;
-        private readonly SavedTracksExecutor savedTracksExecutor;
+        private readonly TrackRunner trackRunner;
 
         private const string StartIdentifier = "start";
 
         public CommandReceiverHandler(
             TcpClient client, 
             TrackStorage trackStorage, 
-            SavedTracksExecutor savedTracksExecutor)
+            TrackRunner trackRunner)
         {
             this.client = client;
             this.trackStorage = trackStorage;
-            this.savedTracksExecutor = savedTracksExecutor;
+            this.trackRunner = trackRunner;
         }
 
-        public void Do()
+        internal void Handle()
         {
             var networkString = ReadStream();
 
             if (networkString.Equals(StartIdentifier))
             {
-                this.savedTracksExecutor.ExecuteSavedTracks();
+                this.trackRunner.ExecuteSavedTracks();
             }
             else
             {
