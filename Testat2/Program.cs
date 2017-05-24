@@ -23,7 +23,8 @@ namespace Testat2
 
                 var robot = new Robot();
                 var trackStorage = new TrackStorage();
-                var trackCreator = new TrackCreator(robot);
+                var trackFactory = new TrackFactory(robot);
+                var trackCreator = new TrackCreator(trackFactory);
                 var trackExecutor = new TrackExecutor(robot);
                 var savedTracksExecutor = new TrackRunner(trackStorage, trackCreator, trackExecutor);
                 var tcpClient = listen.AcceptTcpClient();

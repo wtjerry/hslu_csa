@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TrackFactory.cs" />
     <Compile Include="TrackRunner.cs" />
     <Compile Include="TrackCreator.cs" />
     <Compile Include="TrackExecutor.cs" />
