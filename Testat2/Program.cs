@@ -26,7 +26,9 @@ namespace Testat2
                 var trackFactory = new TrackFactory(robot);
                 var trackCreator = new TrackCreator(trackFactory);
                 var trackExecutor = new TrackExecutor(robot);
-                var savedTracksExecutor = new TrackRunner(trackStorage, trackCreator, trackExecutor);
+                var httpPageCreator = new HttpPageCreator();
+                var httpServer = new HttpServer(httpPageCreator);
+                var savedTracksExecutor = new TrackRunner(trackStorage, trackCreator, trackExecutor, httpServer);
                 var tcpClient = listen.AcceptTcpClient();
                 var commandReceiverHandler = new CommandReceiverHandler(tcpClient, trackStorage, savedTracksExecutor);
                 new Thread(commandReceiverHandler.Handle).Start();

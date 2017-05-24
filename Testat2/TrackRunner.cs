@@ -8,19 +8,26 @@ namespace Testat2
         private readonly TrackStorage trackStorage;
         private readonly TrackCreator trackCreator;
         private readonly TrackExecutor trackExecutor;
+        private readonly HttpServer httpServer;
 
-        internal TrackRunner(TrackStorage trackStorage, TrackCreator trackCreator, TrackExecutor trackExecutor)
+        internal TrackRunner(
+            TrackStorage trackStorage, 
+            TrackCreator trackCreator, 
+            TrackExecutor trackExecutor,
+            HttpServer httpServer)
         {
             this.trackStorage = trackStorage;
             this.trackCreator = trackCreator;
             this.trackExecutor = trackExecutor;
+            this.httpServer = httpServer;
         }
 
         internal void ExecuteSavedTracks()
         {
             var tracksAsSring = this.trackStorage.LoadTracks();
             var tracks = this.ConvertStringToTracks(tracksAsSring);
-            trackExecutor.ExecuteTracks(tracks);
+            var trackData = this.trackExecutor.ExecuteTracks(tracks);
+            this.httpServer.StartHttpServer(tracksAsSring, trackData);
         }
 
         private IEnumerable<Track> ConvertStringToTracks(string tracksAsSring)

@@ -15,7 +15,7 @@ namespace Testat2
             this.robot = robot;
         }
 
-        internal void ExecuteTracks(IEnumerable<Track> tracks)
+        internal string ExecuteTracks(IEnumerable<Track> tracks)
         {
             this.InitializeMotor();
 
@@ -25,6 +25,8 @@ namespace Testat2
                 track.RunSync();
                 Console.WriteLine("RunSync ended");
             }
+
+            return "dummy track data";
         }
 
         private void InitializeMotor()
