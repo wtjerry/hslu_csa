@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
 using RobotCtrl;
 using Testat2.Tracks;
 using Track = Testat2.Tracks.Track;
@@ -25,6 +21,8 @@ namespace Testat2
 
         private const string TempTracklistFilePath = "\\Temp\\trackList";
 
+        private const string StartIdentifier = "start";
+
         public CommandReceiverHandler(TcpClient client, Robot robot)
         {
             this.client = client;
@@ -35,14 +33,19 @@ namespace Testat2
         {
             var networkString = ReadStream();
 
-            this.SaveTracksToFileSystem(networkString);
+            if (networkString.Equals(StartIdentifier))
+            {
+                var tracksAsSring = this.LoadTracksFromFileSystem();
 
-            var tracksAsSring = this.LoadTracksFromFileSystem();
+                var tracksAsStringList = tracksAsSring.Replace("\r", "").Split('\n');
+                var tracks = this.ConvertStringToTracks(tracksAsStringList);
 
-            var tracksAsStringList = tracksAsSring.Replace("\r", "").Split('\n');
-            var tracks = this.ConvertStringToTracks(tracksAsStringList);
-            
-            this.ExecuteTracks(tracks);
+                this.ExecuteTracks(tracks);
+            }
+            else
+            {
+                this.SaveTracksToFileSystem(networkString);
+            }
         }
 
         private string ReadStream()
