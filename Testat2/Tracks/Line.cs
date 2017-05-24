@@ -2,11 +2,11 @@
 
 namespace Testat2.Tracks
 {
-    public class Line : Track
+    internal class Line : Track
     {
         private readonly float distance;
 
-        public Line(Robot robot, float distance) : base(robot)
+        internal Line(Robot robot, float distance) : base(robot)
         {
             this.distance = distance;
         }

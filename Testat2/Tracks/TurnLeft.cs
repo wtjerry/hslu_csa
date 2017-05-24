@@ -2,11 +2,11 @@
 
 namespace Testat2.Tracks
 {
-    public class TurnLeft : Track
+    internal class TurnLeft : Track
     {
         private readonly float angle;
 
-        public TurnLeft(Robot robot, float angle) : base(robot)
+        internal TurnLeft(Robot robot, float angle) : base(robot)
         {
             this.angle = angle;
         }

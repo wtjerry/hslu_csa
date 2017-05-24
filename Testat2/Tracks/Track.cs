@@ -5,18 +5,22 @@ using RobotCtrl;
 
 namespace Testat2.Tracks
 {
-    public abstract class Track
+    internal abstract class Track
     {
-        private readonly Robot robot;
-
         protected Track(Robot robot)
         {
-            this.robot = robot;
+            this.Robot = robot;
             this.Acceleration = 0.3f;
             this.Speed = 0.5f;
         }
 
-        public void RunSync()
+        protected float Acceleration { get; private set; }
+
+        protected float Speed { get; private set; }
+
+        protected Robot Robot { get; private set; }
+
+        internal void RunSync()
         {
             this.RunTrack();
             Thread.Sleep(1000);
@@ -27,13 +31,5 @@ namespace Testat2.Tracks
         }
 
         protected abstract void RunTrack();
-
-        protected Robot Robot
-        {
-            get { return robot; }
-        }
-
-        protected float Acceleration { get; private set; }
-        protected float Speed { get; private set; }
     }
 }

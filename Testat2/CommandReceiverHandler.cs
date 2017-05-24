@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Net.Sockets;
-using RobotCtrl;
-using Testat2.Tracks;
-using Track = Testat2.Tracks.Track;
 
 namespace Testat2
 {
@@ -13,13 +8,6 @@ namespace Testat2
         private readonly TcpClient client;
         private readonly TrackStorage trackStorage;
         private readonly SavedTracksExecutor savedTracksExecutor;
-        private readonly Robot robot;
-
-        private const string TracklineCommandName = "TrackLine ";
-        private const string TrackTurnLeftCommandName = "TrackTurnLeft ";
-        private const string TrackTurnRightCommandName = "TrackTurnRight ";
-        private const string TrackArcLeftCommandName = "TrackArcLeft ";
-        private const string TrackArcRightCommandName = "TrackArcRight ";
 
         private const string StartIdentifier = "start";
 

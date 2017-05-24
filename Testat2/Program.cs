@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using System.Windows.Forms;
 using RobotCtrl;
 
 namespace Testat2
@@ -23,10 +20,11 @@ namespace Testat2
             {
                 Console.WriteLine("Warte auf Verbindung auf Port " +
                     listen.LocalEndpoint + "...");
-                var robot = new Robot();
 
+                var robot = new Robot();
                 var trackStorage = new TrackStorage();
-                var savedTracksExecutor = new SavedTracksExecutor(trackStorage, robot);
+                var trackCreator = new TrackCreator(robot);
+                var savedTracksExecutor = new SavedTracksExecutor(trackStorage, trackCreator, robot);
                 var tcpClient = listen.AcceptTcpClient();
                 var commandReceiverHandler = new CommandReceiverHandler(tcpClient, trackStorage, savedTracksExecutor);
                 new Thread(commandReceiverHandler.Do).Start();

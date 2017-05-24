@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using RobotCtrl;
-using Testat2.Tracks;
 using Track = Testat2.Tracks.Track;
 
 namespace Testat2
@@ -11,16 +9,13 @@ namespace Testat2
     {
         private readonly TrackStorage trackStorage;
         private readonly Robot robot;
-        private const string TracklineCommandName = "TrackLine ";
-        private const string TrackTurnLeftCommandName = "TrackTurnLeft ";
-        private const string TrackTurnRightCommandName = "TrackTurnRight ";
-        private const string TrackArcLeftCommandName = "TrackArcLeft ";
-        private const string TrackArcRightCommandName = "TrackArcRight ";
+        private readonly TrackCreator trackCreator;
 
-        internal SavedTracksExecutor(TrackStorage trackStorage, Robot robot)
+        internal SavedTracksExecutor(TrackStorage trackStorage, TrackCreator trackCreator, Robot robot)
         {
             this.trackStorage = trackStorage;
             this.robot = robot;
+            this.trackCreator = trackCreator;
         }
 
         internal void ExecuteSavedTracks()
@@ -38,49 +33,8 @@ namespace Testat2
             var tracks = new List<Track>();
             foreach (var s in commandsAsString)
             {
-                if (s.StartsWith(TracklineCommandName))
-                {
-                    var argument = s.Substring(TracklineCommandName.Length);
-                    var distance = float.Parse(argument);
-                    var track = new Line(this.robot, distance);
-                    tracks.Add(track);
-                }
-
-                else if (s.StartsWith(TrackTurnLeftCommandName))
-                {
-                    var argument = s.Substring(TrackTurnLeftCommandName.Length);
-                    var angle = int.Parse(argument);
-                    var track = new TurnLeft(this.robot, angle);
-                    tracks.Add(track);
-                }
-
-                else if (s.StartsWith(TrackTurnRightCommandName))
-                {
-                    var argument = s.Substring(TrackTurnRightCommandName.Length);
-                    var angle = int.Parse(argument);
-                    var track = new TurnRight(this.robot, angle);
-                    tracks.Add(track);
-                }
-
-                else if (s.StartsWith(TrackArcLeftCommandName))
-                {
-                    var argumentsAsString = s.Substring(TrackArcLeftCommandName.Length);
-                    var arguments = argumentsAsString.Split(' ');
-                    var angle = int.Parse(arguments[0]);
-                    var radius = float.Parse(arguments[1]);
-                    var track = new ArcLeft(this.robot, angle, radius);
-                    tracks.Add(track);
-                }
-
-                else if (s.StartsWith(TrackArcRightCommandName))
-                {
-                    var argumentsAsString = s.Substring(TrackArcRightCommandName.Length);
-                    var arguments = argumentsAsString.Split(' ');
-                    var angle = int.Parse(arguments[0]);
-                    var radius = float.Parse(arguments[1]);
-                    var track = new ArcRight(this.robot, angle, radius);
-                    tracks.Add(track);
-                }
+                var track = this.trackCreator.CreateTrack(s);
+                tracks.Add(track);
             }
 
             return tracks;

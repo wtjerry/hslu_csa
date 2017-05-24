@@ -46,10 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SavedTracksExecutor.cs" />
+    <Compile Include="TrackCreator.cs" />
     <Compile Include="TrackStorage.cs" />
     <Compile Include="Tracks\ArcLeft.cs" />
     <Compile Include="CommandReceiverHandler.cs" />
     <Compile Include="Tracks\ArcRight.cs" />
+    <Compile Include="Tracks\NullTrack.cs" />
     <Compile Include="Tracks\TurnRight.cs" />
     <Compile Include="Tracks\TurnLeft.cs" />
     <Compile Include="Tracks\Track.cs" />

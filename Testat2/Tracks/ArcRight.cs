@@ -2,12 +2,12 @@
 
 namespace Testat2.Tracks
 {
-    public class ArcRight : Track
+    internal class ArcRight : Track
     {
         private readonly float angle;
         private readonly float radius;
 
-        public ArcRight(Robot robot, float angle, float radius) : base(robot)
+        internal ArcRight(Robot robot, float angle, float radius) : base(robot)
         {
             this.angle = angle;
             this.radius = radius;
