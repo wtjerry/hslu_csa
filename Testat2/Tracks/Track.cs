@@ -23,19 +23,39 @@ namespace Testat2.Tracks
 
         protected Robot Robot { get; private set; }
 
-        internal void RunSync()
+        internal string RunSync()
         {
+            var trackData = string.Empty;
             this.RunTrack();
             Thread.Sleep(1000);
             while (!this.Robot.Drive.Done)
             {
-                Thread.Sleep(50);
+                Thread.Sleep(500);
+                trackData += GetTrackData();
+
                 var isAnObstacleBlockingThePath = this.obstacleDetector.IsAnObstacleBlockingThePath();
                 if (isAnObstacleBlockingThePath)
                 {
-                    return;
+                    this.Robot.Drive.DriveCtrl.PowerLeft = false;
+                    this.Robot.Drive.DriveCtrl.PowerRight = false;
+                    return trackData;
                 }
             }
+
+            return trackData;
+        }
+
+        private string GetTrackData()
+        {
+            var distanceLeftMotor = this.ConvertMotorTicksToDistance(this.Robot.Drive.MotorCtrlLeft.Ticks * -1);
+            var distanceRightMotor = this.ConvertMotorTicksToDistance(this.Robot.Drive.MotorCtrlLeft.Ticks);
+
+            return $"Distance motor left: {distanceLeftMotor}, Disance motor right {distanceRightMotor} | ";
+        }
+
+        private double ConvertMotorTicksToDistance(double motorTicks)
+        {
+            return motorTicks / 28700d * 23.87d;
         }
 
         protected abstract void RunTrack();
