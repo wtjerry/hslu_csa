@@ -1,4 +1,4 @@
-﻿namespace Testat2
+﻿namespace Testat2.HttpServer
 {
     internal class HttpPageCreator
     {

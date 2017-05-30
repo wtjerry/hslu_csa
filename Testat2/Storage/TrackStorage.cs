@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace Testat2
+namespace Testat2.Storage
 {
     internal class TrackStorage
     {
