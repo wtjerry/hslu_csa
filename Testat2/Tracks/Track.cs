@@ -34,12 +34,12 @@ namespace Testat2.Tracks
                 trackData += GetTrackData();
 
                 var isAnObstacleBlockingThePath = this.obstacleDetector.IsAnObstacleBlockingThePath();
-//                if (isAnObstacleBlockingThePath)
-//                {
-//                    this.Robot.Drive.DriveCtrl.PowerLeft = false;
-//                    this.Robot.Drive.DriveCtrl.PowerRight = false;
-//                    return trackData;
-//                }
+                if (isAnObstacleBlockingThePath)
+                {
+                    this.Robot.Drive.DriveCtrl.PowerLeft = false;
+                    this.Robot.Drive.DriveCtrl.PowerRight = false;
+                    return trackData;
+                }
             }
 
             return trackData;

@@ -41,12 +41,12 @@ namespace Testat2
             this.robot.Drive.DriveCtrl.PowerLeft = false;
             Thread.Sleep(10);
             this.robot.Drive.DriveCtrl.PowerRight = false;
-            Thread.Sleep(10);
+            Thread.Sleep(100);
             this.robot.Drive.DriveCtrl.PowerLeft = true;
-            Thread.Sleep(10);
+            Thread.Sleep(20);
             this.robot.Drive.DriveCtrl.PowerRight = true;
 
-            Thread.Sleep(10);
+            Thread.Sleep(20);
 
             this.robot.Drive.MotorCtrlLeft.ResetTicks();
 

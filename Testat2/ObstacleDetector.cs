@@ -20,8 +20,8 @@ namespace Testat2
             Thread.Sleep(100);
             var secondDistanceMeasurement = this.robot.Radar.Distance;
 
-            if (firstDistanceMeasurement > MinDistanceForSomethingToBeBlockingThePath
-                && secondDistanceMeasurement > MinDistanceForSomethingToBeBlockingThePath)
+            if (firstDistanceMeasurement < MinDistanceForSomethingToBeBlockingThePath
+                && secondDistanceMeasurement < MinDistanceForSomethingToBeBlockingThePath)
             {
                 return true;
             }
