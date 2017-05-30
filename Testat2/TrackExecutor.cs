@@ -27,6 +27,10 @@ namespace Testat2
                 Console.WriteLine("RunSync ended");
             }
 
+            Console.WriteLine("All tracks finished.");
+            this.ResetMotor();
+            Console.WriteLine("Motor resetted.");
+
             return trackData;
         }
 
@@ -36,6 +40,14 @@ namespace Testat2
             this.robot.Drive.MotorCtrlLeft.ResetTicks();
             this.robot.Drive.DriveCtrl.PowerLeft = true;
             this.robot.Drive.DriveCtrl.PowerRight = true;
+        }
+
+        private void ResetMotor()
+        {
+            this.robot.Position = new PositionInfo(0, 0, 0);
+            this.robot.Drive.MotorCtrlLeft.ResetTicks();
+            this.robot.Drive.DriveCtrl.PowerLeft = false;
+            this.robot.Drive.DriveCtrl.PowerRight = false;
         }
     }
 }
