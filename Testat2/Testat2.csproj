@@ -46,12 +46,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HttpPageCreator.cs" />
-    <Compile Include="HttpServer.cs" />
+    <Compile Include="HttpServer\HttpHandler.cs" />
+    <Compile Include="HttpServer\SimpleHttpServer.cs" />
     <Compile Include="ObstacleDetector.cs" />
     <Compile Include="TrackFactory.cs" />
     <Compile Include="TrackRunner.cs" />
     <Compile Include="TrackCreator.cs" />
     <Compile Include="TrackExecutor.cs" />
+    <Compile Include="TrackDataStorage.cs" />
     <Compile Include="TrackStorage.cs" />
     <Compile Include="Tracks\ArcLeft.cs" />
     <Compile Include="CommandReceiverHandler.cs" />

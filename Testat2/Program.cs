@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using RobotCtrl;
+using Testat2.HttpServer;
 
 namespace Testat2
 {
@@ -14,12 +15,21 @@ namespace Testat2
         [MTAThread]
         static void Main()
         {
+            var runTrackListenerThread = new Thread(RunTrackListener);
+            var runTrackDataProviderThread = new Thread(RunTrackDataProvider);
+
+            runTrackListenerThread.Start();
+            runTrackDataProviderThread.Start();
+        }
+
+        private static void RunTrackListener()
+        {
             var listen = new TcpListener(IPAddress.Any, 34343);
             listen.Start();
             while (true)
             {
                 Console.WriteLine("Warte auf Verbindung auf Port " +
-                    listen.LocalEndpoint + "...");
+                                  listen.LocalEndpoint + "...");
 
                 var robot = new Robot();
                 var trackStorage = new TrackStorage();
@@ -27,13 +37,26 @@ namespace Testat2
                 var trackFactory = new TrackFactory(robot, obstacleDetector);
                 var trackCreator = new TrackCreator(trackFactory);
                 var trackExecutor = new TrackExecutor(robot);
-                var httpPageCreator = new HttpPageCreator();
-                var httpServer = new HttpServer(httpPageCreator);
-                var savedTracksExecutor = new TrackRunner(trackStorage, trackCreator, trackExecutor, httpServer);
+                var savedTracksExecutor = new TrackRunner(trackStorage, trackCreator, trackExecutor);
                 var tcpClient = listen.AcceptTcpClient();
                 var commandReceiverHandler = new CommandReceiverHandler(tcpClient, trackStorage, savedTracksExecutor);
                 new Thread(commandReceiverHandler.Handle).Start();
             }
         }
+
+        private static void RunTrackDataProvider()
+        {
+            var listen = new TcpListener(IPAddress.Any, 8080);
+            listen.Start();
+            while (true)
+            {
+                Console.WriteLine("Warte auf Verbindung auf Port " +
+                                  listen.LocalEndpoint + "...");
+
+                var simpleHttpServer = new SimpleHttpServer(listen, TrackDataStorage.TempTracklistFilePath);
+                new Thread(simpleHttpServer.Execute).Start();
+            }
+        }
+
     }
 }

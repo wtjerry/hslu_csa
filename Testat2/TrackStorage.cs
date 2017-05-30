@@ -4,7 +4,7 @@ namespace Testat2
 {
     internal class TrackStorage
     {
-        internal const string TempTracklistFilePath = "\\Temp\\trackList";
+        private const string TempTracklistFilePath = "\\Temp\\trackList";
 
         internal void SaveTracks(string tracks)
         {
