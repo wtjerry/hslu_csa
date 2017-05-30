@@ -37,9 +37,11 @@ namespace Testat2
         private void InitializeMotor()
         {
             this.robot.Position = new PositionInfo(0, 0, 0);
-            this.robot.Drive.MotorCtrlLeft.ResetTicks();
+            this.robot.Drive.DriveCtrl.PowerLeft = false;
+            this.robot.Drive.DriveCtrl.PowerRight = false;
             this.robot.Drive.DriveCtrl.PowerLeft = true;
             this.robot.Drive.DriveCtrl.PowerRight = true;
+            this.robot.Drive.MotorCtrlLeft.ResetTicks();
         }
 
         private void ResetMotor()
