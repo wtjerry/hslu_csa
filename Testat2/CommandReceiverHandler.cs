@@ -41,6 +41,7 @@ namespace Testat2
         {
             var networkStream = this.client.GetStream();
             var networkString = new StreamReader(networkStream).ReadToEnd();
+            networkStream.Close();
             this.client.Close();
             return networkString;
         }

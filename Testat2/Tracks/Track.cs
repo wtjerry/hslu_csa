@@ -27,10 +27,10 @@ namespace Testat2.Tracks
         {
             var trackData = string.Empty;
             this.RunTrack();
-            Thread.Sleep(1000);
+            Thread.Sleep(10);
             while (!this.Robot.Drive.Done)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(20);
                 trackData += GetTrackData();
 
                 var isAnObstacleBlockingThePath = this.obstacleDetector.IsAnObstacleBlockingThePath();

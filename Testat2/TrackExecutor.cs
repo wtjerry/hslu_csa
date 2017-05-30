@@ -39,11 +39,11 @@ namespace Testat2
         {
             this.robot.Position = new PositionInfo(0, 0, 0);
             this.robot.Drive.DriveCtrl.PowerLeft = false;
-            Thread.Sleep(10);
-            this.robot.Drive.DriveCtrl.PowerRight = false;
             Thread.Sleep(100);
+            this.robot.Drive.DriveCtrl.PowerRight = false;
+            Thread.Sleep(1000);
             this.robot.Drive.DriveCtrl.PowerLeft = true;
-            Thread.Sleep(20);
+            Thread.Sleep(200);
             this.robot.Drive.DriveCtrl.PowerRight = true;
 
             Thread.Sleep(20);
