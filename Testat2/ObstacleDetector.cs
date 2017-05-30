@@ -7,7 +7,7 @@ namespace Testat2
     {
         private readonly Robot robot;
 
-        private const float MinDistanceForSomethingToBeBlockingThePath = 0.3f;
+        private const float MinDistanceForSomethingToBeBlockingThePath = 0.6f;
 
         internal ObstacleDetector(Robot robot)
         {

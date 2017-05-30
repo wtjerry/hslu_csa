@@ -16,9 +16,14 @@ namespace Testat2
         [MTAThread]
         static void Main()
         {
+            var robot = new Robot();
+            
             var trackDataStorage = new TrackDataStorage(new HttpPageCreator());
             StartTrackDataProviderAsync(trackDataStorage);
-            RunTrackListenerBlocking(trackDataStorage);
+            new Thread(x => RunTrackListenerBlocking(trackDataStorage, robot)).Start();
+            while (true)
+            {
+            }
         }
 
         private static void StartTrackDataProviderAsync(TrackDataStorage trackDataStorage)
@@ -32,7 +37,7 @@ namespace Testat2
             new Thread(simpleHttpServer.Execute).Start();
         }
 
-        private static void RunTrackListenerBlocking(TrackDataStorage trackDataStorage)
+        private static void RunTrackListenerBlocking(TrackDataStorage trackDataStorage, Robot robot)
         {
             var listen = new TcpListener(IPAddress.Any, 34343);
             listen.Start();
@@ -40,8 +45,6 @@ namespace Testat2
             {
                 Console.WriteLine("Warte auf Verbindung auf Port " +
                                   listen.LocalEndpoint + "...");
-
-                var robot = new Robot();
                 var trackStorage = new TrackStorage();
                 var obstacleDetector = new ObstacleDetector(robot);
                 var trackFactory = new TrackFactory(robot, obstacleDetector);
