@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using RobotCtrl;
 using Track = Testat2.Tracks.Track;
 
@@ -38,10 +39,18 @@ namespace Testat2
         {
             this.robot.Position = new PositionInfo(0, 0, 0);
             this.robot.Drive.DriveCtrl.PowerLeft = false;
+            Thread.Sleep(10);
             this.robot.Drive.DriveCtrl.PowerRight = false;
+            Thread.Sleep(10);
             this.robot.Drive.DriveCtrl.PowerLeft = true;
+            Thread.Sleep(10);
             this.robot.Drive.DriveCtrl.PowerRight = true;
+
+            Thread.Sleep(10);
+
             this.robot.Drive.MotorCtrlLeft.ResetTicks();
+
+            Thread.Sleep(10);
         }
 
         private void ResetMotor()
