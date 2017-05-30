@@ -5,7 +5,7 @@ namespace Testat2.Storage
 {
     internal class TrackDataStorage
     {
-        internal const string TempTrackDataHttpPage = "\\Temp\\trackDataHttpPage";
+        private const string TempTrackDataHttpPage = "\\Temp\\trackDataHttpPage";
 
         private readonly HttpPageCreator httpPageCreator;
 
@@ -21,6 +21,12 @@ namespace Testat2.Storage
             var fileStream = File.Create(TempTrackDataHttpPage);
             var fileStreamWriter = new StreamWriter(fileStream);
             fileStreamWriter.Write(httpPage);
+
+            fileStreamWriter.Flush();
+            fileStream.Flush();
+
+            fileStreamWriter.Close();
+            fileStream.Close();
         }
 
         internal string LoadHttpPageFromStorage()
@@ -31,6 +37,9 @@ namespace Testat2.Storage
                 var fileStream = File.OpenRead(TempTrackDataHttpPage);
                 var streamReader = new StreamReader(fileStream);
                 page = streamReader.ReadToEnd();
+
+                streamReader.Close();
+                fileStream.Close();
             }
             return page;
         }
