@@ -33,7 +33,7 @@ namespace Testat2.HttpServer
 
             var header = "HTTP/1.1 200 OK\n";
             header += "Server: FuckingShittingRobotServer 1.0\n";
-            header += "Content-type: text/plain\n";
+            header += "Content-type: text/html\n";
             header += "Content-length: " + fileContent.Length + "\n\n";
 
             sw.Write(header + fileContent);
