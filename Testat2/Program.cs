@@ -16,8 +16,20 @@ namespace Testat2
         [MTAThread]
         static void Main()
         {
-            StartTrackDataProviderAsync();
+            var trackDataStorage = new TrackDataStorage(new HttpPageCreator());
+            StartTrackDataProviderAsync(trackDataStorage);
             RunTrackListenerBlocking();
+        }
+
+        private static void StartTrackDataProviderAsync(TrackDataStorage trackDataStorage)
+        {
+            var listen = new TcpListener(IPAddress.Any, 8080);
+            listen.Start();
+            Console.WriteLine("Warte auf Verbindung auf Port " +
+                                listen.LocalEndpoint + "...");
+
+            var simpleHttpServer = new SimpleHttpServer(listen, trackDataStorage);
+            new Thread(simpleHttpServer.Execute).Start();
         }
 
         private static void RunTrackListenerBlocking()
@@ -40,17 +52,6 @@ namespace Testat2
                 var commandReceiverHandler = new CommandReceiverHandler(tcpClient, trackStorage, savedTracksExecutor);
                 new Thread(commandReceiverHandler.Handle).Start();
             }
-        }
-
-        private static void StartTrackDataProviderAsync()
-        {
-            var listen = new TcpListener(IPAddress.Any, 8080);
-            listen.Start();
-            Console.WriteLine("Warte auf Verbindung auf Port " +
-                                listen.LocalEndpoint + "...");
-
-            var simpleHttpServer = new SimpleHttpServer(listen, TrackDataStorage.TempTracklistFilePath);
-            new Thread(simpleHttpServer.Execute).Start();
         }
     }
 }

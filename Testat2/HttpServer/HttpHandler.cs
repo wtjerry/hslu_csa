@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net.Sockets;
+using Testat2.Storage;
 
 namespace Testat2.HttpServer
 {
@@ -8,12 +9,12 @@ namespace Testat2.HttpServer
     {
 
         private readonly TcpClient client;
-        private readonly string filepath;
+        private readonly TrackDataStorage trackDataStorage;
 
-        public HttpHandler(TcpClient acceptTcpClient, string filepath)
+        public HttpHandler(TcpClient acceptTcpClient, TrackDataStorage trackDataStorage)
         {
             this.client = acceptTcpClient;
-            this.filepath = filepath;
+            this.trackDataStorage = trackDataStorage;
         }
 
         public void Do()
@@ -24,11 +25,7 @@ namespace Testat2.HttpServer
             Console.Write("Request from: " +
                               client.Client.RemoteEndPoint);
 
-            var fileContent = "File not Found!";
-            if(File.Exists(this.filepath))
-            {
-                fileContent = File.OpenText(this.filepath).ReadToEnd();
-            }
+            var fileContent = this.trackDataStorage.LoadHttpPageFromStorage();
 
             var request = sr.ReadLine();
 
