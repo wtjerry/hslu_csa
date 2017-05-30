@@ -18,7 +18,7 @@ namespace Testat2
         {
             var trackDataStorage = new TrackDataStorage(new HttpPageCreator());
             StartTrackDataProviderAsync(trackDataStorage);
-            RunTrackListenerBlocking();
+            RunTrackListenerBlocking(trackDataStorage);
         }
 
         private static void StartTrackDataProviderAsync(TrackDataStorage trackDataStorage)
@@ -32,7 +32,7 @@ namespace Testat2
             new Thread(simpleHttpServer.Execute).Start();
         }
 
-        private static void RunTrackListenerBlocking()
+        private static void RunTrackListenerBlocking(TrackDataStorage trackDataStorage)
         {
             var listen = new TcpListener(IPAddress.Any, 34343);
             listen.Start();
@@ -47,7 +47,7 @@ namespace Testat2
                 var trackFactory = new TrackFactory(robot, obstacleDetector);
                 var trackCreator = new TrackCreator(trackFactory);
                 var trackExecutor = new TrackExecutor(robot);
-                var savedTracksExecutor = new TrackRunner(trackStorage, trackCreator, trackExecutor);
+                var savedTracksExecutor = new TrackRunner(trackStorage, trackDataStorage, trackCreator, trackExecutor);
                 var tcpClient = listen.AcceptTcpClient();
                 var commandReceiverHandler = new CommandReceiverHandler(tcpClient, trackStorage, savedTracksExecutor);
                 new Thread(commandReceiverHandler.Handle).Start();

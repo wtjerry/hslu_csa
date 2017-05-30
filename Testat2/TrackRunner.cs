@@ -7,15 +7,18 @@ namespace Testat2
     internal class TrackRunner
     {
         private readonly TrackStorage trackStorage;
+        private readonly TrackDataStorage trackDataStorage;
         private readonly TrackCreator trackCreator;
         private readonly TrackExecutor trackExecutor;
 
         internal TrackRunner(
             TrackStorage trackStorage, 
+            TrackDataStorage trackDataStorage,
             TrackCreator trackCreator, 
             TrackExecutor trackExecutor)
         {
             this.trackStorage = trackStorage;
+            this.trackDataStorage = trackDataStorage;
             this.trackCreator = trackCreator;
             this.trackExecutor = trackExecutor;
         }
@@ -25,7 +28,7 @@ namespace Testat2
             var tracksAsSring = this.trackStorage.LoadTracks();
             var tracks = this.ConvertStringToTracks(tracksAsSring);
             var trackData = this.trackExecutor.ExecuteTracks(tracks);
-            // todo jeremy: save trackdata to file
+            this.trackDataStorage.SaveTrackData(trackData, tracksAsSring);
         }
 
         private IEnumerable<Track> ConvertStringToTracks(string tracksAsSring)
